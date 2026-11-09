@@ -149,10 +149,11 @@ a.lnk[data-kind=file]::before{content:'▣ '}
 a.lnk[data-kind=anchor]::after{content:' ↓'}
 code{font:12.5px var(--mono);background:#f1eee6;border:1px solid #d8d4ca;padding:0 5px;word-break:break-all}
 strong{background:var(--yel);padding:0 3px;font-weight:900}
-.decbadge{background:var(--red);color:#fff;border:2.5px solid var(--ink);font:900 13px/1 var(--sans);padding:7px 10px;box-shadow:3px 3px 0 var(--ink);cursor:pointer;transition:transform .12s,box-shadow .12s}
-.decbadge:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink)}
+.decbadge{background:var(--red);color:#fff;border:2.5px solid var(--ink);font:900 13px/1 var(--sans);padding:7px 10px;box-shadow:3px 3px 0 var(--ink)}
+button.decbadge{cursor:pointer;transition:transform .12s,box-shadow .12s}
+button.decbadge:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink)}
 .decbadge .ok{display:none}
-.card[data-dec=done] .decbadge{background:var(--ink);color:var(--yel)}
+.card[data-dec=done] .decbadge,.decbadge.is-settled{background:var(--ink);color:var(--yel)}
 .card[data-dec=done] .decbadge .open{display:none}
 .card[data-dec=done] .decbadge .ok{display:inline}
 .card.is-done{background:repeating-linear-gradient(-45deg,#fff 0 12px,#f2efe8 12px 24px);box-shadow:3px 3px 0 var(--ink)}
@@ -174,6 +175,7 @@ body.hide-done .card.is-done{display:none}
 .dstat .big small{color:#8a867e;font-size:44px}
 .dstat .lab{color:#cfcbc2}
 .dgroup{position:relative;margin-top:44px}
+.dempty{position:relative;margin-top:32px;color:#cfcbc2}
 .dgroup>h3{display:flex;align-items:center;gap:12px;margin:0 0 18px;font:900 15px var(--sans)}
 .dgroup>h3 span{background:var(--gc);color:var(--gt);padding:7px 12px;border:2.5px solid #fff}
 .dgroup>h3::after{content:'';flex:1;height:3px;background:#fff;opacity:.85}
@@ -286,7 +288,7 @@ body.hide-done .card.is-done{display:none}
     <span class="c1"></span><span class="c2"></span>
     <div class="dhead">
       <div><h2>拍板！</h2>
-        <p>每张卡底部是输入框。选项点一下按下去，再点一下弹起；输入框随写随存，存在这个浏览器里。写完点底栏蓝色的「提交到 GitHub」，在打开的页面点 Create 提交，之后跟 Claude 或 Codex 说「同步决策」就会写回 data.js。也可以点「复制决策」直接贴给它们。</p></div>
+        <p>每张卡底部是输入框。选项点一下按下去，再点一下弹起；输入框随写随存，存在这个浏览器里。写完点底栏蓝色的「提交到 GitHub」，在打开的页面点 Create 提交，之后跟 Claude 或 Codex 说「同步决策」。已同步的决策会移出列表。也可以点「复制决策」直接贴给它们。</p></div>
       <div class="dstat"><div class="big w"><span id="dsD">0</span><small>/<span id="dsT">0</span></small></div><div class="lab">已决定</div></div>
     </div>
     <div id="decisions"></div>
@@ -313,6 +315,8 @@ body.hide-done .card.is-done{display:none}
   const $ = (id) => document.getElementById(id);
   const DAY = 86400e3, OFF = 8 * 3600e3;
   const CHK = '<svg viewBox="0 0 32 32"><path d="M8 16.5l5.5 5.5L24.5 10"/></svg>';
+  const draftDecisionIds = new Set(TC.pendingSync().decs.map((d) => d.id));
+  const visibleDecisionIds = new Set(D.decisions.filter((d) => !d.resolved || draftDecisionIds.has(d.id)).map((d) => d.id));
   // data.js 里分组的 color 只能用这几个：[底色, 字色, 进度条色]
   const PALETTE = {
     red: ['var(--red)', '#fff', 'var(--ink)'],
@@ -343,7 +347,13 @@ body.hide-done .card.is-done{display:none}
     if (t.tag) flags.push(`<span class="flag new">${esc(t.tag)}</span>`);
     if (t.owner) flags.push(`<span class="flag own">→ ${esc(t.owner)}</span>`);
     const links = (t.links || []).map((l) => link(l, 'lnk')).join('');
-    const badge = t.dec ? `<button class="decbadge" data-goto="dec-${t.dec[0]}"><span class="open">需决策${t.dec.length > 1 ? ' ×' + t.dec.length : ''} →</span><span class="ok">已决定 ✓</span></button>` : '';
+    const pending = (t.dec || []).filter((id) => visibleDecisionIds.has(id));
+    let badge = '';
+    if (pending.length) {
+      badge = `<button class="decbadge" data-goto="dec-${pending[0]}"><span class="open">需决策${pending.length > 1 ? ' ×' + pending.length : ''} →</span><span class="ok">已决定 ✓</span></button>`;
+    } else if (t.dec?.length) {
+      badge = '<span class="decbadge is-settled">已决定 ✓</span>';
+    }
     const box = t.idea ? '' : `<label class="cb"><input type="checkbox" data-task="${t.id}" aria-label="完成：${esc(t.title)}">${CHK}</label>`;
     let dt = '';
     if (t.due) { const s = sg(t.due); dt = `<span class="dt">${t.dueText ? esc(t.dueText) : `${s.m}/${s.d} 周${s.wd} ${s.hm}`}</span>`; }
@@ -440,9 +450,10 @@ body.hide-done .card.is-done{display:none}
     $('fbEnd').insertAdjacentHTML('beforebegin', D.groups.map((g) => `<button class="sb" data-f="${g.id}">${esc(g.short || g.name)}<i></i></button>`).join(''));
     $('groups').innerHTML = D.groups.map(groupHTML).join('');
     $('decisions').innerHTML = D.groups.map((g) => {
-      const list = TC.decisionsOf(g.id);
+      const list = TC.decisionsOf(g.id).filter((d) => visibleDecisionIds.has(d.id));
+      if (!list.length) return '';
       return `<section class="dgroup" data-g="${g.id}"><h3><span>${esc(g.name)} · ${list.length}</span></h3><div class="dgrid">${list.map(decHTML).join('')}</div></section>`;
-    }).join('');
+    }).join('') || '<p class="dempty">目前没有待拍板的决策。</p>';
     $('lanes').innerHTML = lanesHTML();
     $('gbs').innerHTML = D.groups.map((g) => `<button class="gb" data-g="${g.id}" data-fg="${g.id}"><span>${esc(g.short)}</span><span class="tr"><i data-gbi="${g.id}"></i></span><span class="n w" data-gbn="${g.id}"></span></button>`).join('');
     const setFilter = (f) => {
