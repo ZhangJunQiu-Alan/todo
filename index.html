@@ -23,19 +23,6 @@ body{margin:0;font:15px/1.7 var(--sans);color:var(--ink);background-color:var(--
 .wrap{max-width:1320px;margin:0 auto;padding:26px 32px 150px}
 /* 分组颜色 --gc 底色 / --gt 字色 / --gb 进度条色，由脚本按 data.js 的 color 生成，不要按分组 id 写死 */
 
-/* 抬头 */
-.top{display:grid;grid-template-columns:1fr auto;gap:16px;margin-bottom:16px}
-.ttl{position:relative;background:var(--ink);color:var(--bg);border:3px solid var(--ink);padding:20px 28px 18px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;overflow:hidden}
-.ttl h1{margin:0;font:900 clamp(46px,7.4vw,104px)/.88 var(--sans);letter-spacing:-.02em;position:relative;z-index:1}
-.ttl h1 span{color:var(--yel);margin-left:.08em}
-.ttl .tz{font:500 12px/1.6 var(--mono);color:#d8d3c8;text-align:right;position:relative;z-index:1;background:var(--ink);padding:6px 10px}
-.ttl::after{content:'';position:absolute;right:-40px;top:-70px;width:200px;height:200px;border-radius:50%;background:var(--blue)}
-.ttl::before{content:'';position:absolute;right:150px;bottom:-1px;width:0;height:0;border-left:60px solid transparent;border-right:60px solid transparent;border-bottom:70px solid var(--red)}
-.ttl.tile{flex-direction:row}
-.stamp{display:grid;place-content:center;text-align:center;background:var(--white);border:3px solid var(--ink);padding:10px 22px;min-width:190px}
-.stamp b{font-size:52px;line-height:.9}
-.stamp span{font:500 12px var(--mono);color:var(--soft);margin-top:6px}
-
 /* Bento */
 .bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(180px,auto);gap:18px}
 .tile{position:relative;display:flex;flex-direction:column;border:3px solid var(--ink);box-shadow:8px 8px 0 var(--ink);padding:20px 22px;overflow:hidden;animation:pop .75s cubic-bezier(.3,1.5,.5,1) both;animation-delay:calc(var(--i,0) * 90ms + 100ms)}
@@ -239,7 +226,7 @@ body.hide-done .card.is-done{display:none}
 
 @media (max-width:1060px){.bento{grid-template-columns:repeat(2,1fr)}.t-next{grid-column:span 2;grid-row:auto;min-height:380px}}
 @media (max-width:720px){
-  .wrap{padding:18px 16px 170px}.top{grid-template-columns:1fr}.ttl.tile{flex-direction:column;align-items:flex-start}.ttl .tz{text-align:left}
+  .wrap{padding:18px 16px 170px}
   .bento{grid-template-columns:1fr}.t-next{grid-column:auto}
   .lanes{grid-template-columns:64px 1fr 0}.off{display:none}.days div:nth-child(even) b{visibility:hidden}
   .cards,.dgrid{grid-template-columns:1fr}
@@ -252,36 +239,31 @@ body.hide-done .card.is-done{display:none}
 </head>
 <body data-filter="all">
 <div class="wrap">
-  <header class="top">
-    <div class="ttl tile" style="--i:0"><h1>个人<span class="w">TODO</span></h1><div class="tz"><span id="tzN"></span><br>数据 · data.js</div></div>
-    <div class="stamp tile" style="--i:1"><b class="w" id="stD">11.09</b><span id="stW"></span></div>
-  </header>
-
   <section class="bento">
-    <div class="tile t-next" style="--i:2">
+    <div class="tile t-next" style="--i:0">
       <span class="deco1"></span><span class="deco2"></span><span class="deco3"></span>
       <div class="lab">Next deadline · 下一个截止</div>
       <h2 id="nxT"></h2>
       <div class="sub" id="nxS"></div>
       <div class="cd"><span class="num w" id="nxD">0</span><span class="u">天</span><span class="clk w" id="nxC">00:00:00</span></div>
     </div>
-    <div class="tile t-prog" style="--i:3">
+    <div class="tile t-prog" style="--i:1">
       <div class="lab">任务完成</div>
       <div class="big w" id="pgP">0<small>%</small></div>
       <div class="pbar"><i id="pgB"></i></div>
       <div class="foot"><span id="pgN"></span><span>不含「以后的想法」</span></div>
     </div>
-    <div class="tile t-dec" style="--i:4" data-goto="decide">
+    <div class="tile t-dec" style="--i:2" data-goto="decide">
       <div class="lab">等你拍板</div>
       <div class="big w" id="dcN">0</div>
       <div class="foot"><span id="dcS"></span><span class="arrow w">→</span></div>
     </div>
-    <div class="tile t-day" style="--i:5">
+    <div class="tile t-day" style="--i:3">
       <div class="lab" id="fcL"></div>
       <div class="big w" id="fcD">0<small>天</small></div>
       <div class="foot"><span id="fcS"></span></div>
     </div>
-    <div class="tile t-groups" style="--i:6">
+    <div class="tile t-groups" style="--i:4">
       <div class="lab">分组进度 · 点一下筛选</div>
       <div id="gbs" style="display:flex;flex-direction:column;gap:12px;margin-top:6px"></div>
     </div>
@@ -455,10 +437,6 @@ body.hide-done .card.is-done{display:none}
     const css = document.createElement('style');
     css.textContent = groupStyles();
     document.head.appendChild(css);
-    const t = sg(Date.now());
-    $('stD').textContent = `${t.m}.${pad(t.d)}`;
-    $('stW').textContent = `${t.y} · 周${t.wd}`;
-    $('tzN').textContent = D.tzNote || '';
     $('fbEnd').insertAdjacentHTML('beforebegin', D.groups.map((g) => `<button class="sb" data-f="${g.id}">${esc(g.short || g.name)}<i></i></button>`).join(''));
     $('groups').innerHTML = D.groups.map(groupHTML).join('');
     $('decisions').innerHTML = D.groups.map((g) => {
