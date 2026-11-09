@@ -155,6 +155,58 @@
     }
     return out.join('\n');
   }
+  // 网页上改过、但和 data.js 不一样的决策与勾选：这些才需要提交
+  function pendingSync() {
+    const decs = D.decisions.filter((d) => {
+      const loc = state.dec[d.id];
+      if (!loc) return false;
+      const r = d.resolved || {};
+      const x = dec(d.id);
+      return (x.choice || '') !== (r.choice || '') || (x.note || '').trim() !== (r.note || '').trim();
+    });
+    const done = D.tasks.filter((t) => t.id in state.done && !!state.done[t.id] && !t.done);
+    const undone = D.tasks.filter((t) => t.id in state.done && !state.done[t.id] && t.done);
+    return { decs, done, undone, count: decs.length + done.length + undone.length };
+  }
+
+  function issueBody(p) {
+    const out = ['<!-- todo-sync v1 -->', '网页「提交到 GitHub」生成。按 AGENTS.md「同步网页提交的决策」写回 data.js。', ''];
+    if (p.decs.length) {
+      out.push('## 决策', '');
+      p.decs.forEach((d) => {
+        const x = dec(d.id);
+        const note = (x.note || '').trim();
+        out.push(`- \`${d.id}\` ${d.title}：${x.choice ? `**${x.choice}**` : note ? '见补充' : '（撤销）'}`);
+        if (note) out.push('  补充：' + note.replace(/\n/g, '\n  '));
+      });
+      out.push('');
+    }
+    if (p.done.length) out.push('## 勾选完成', '', ...p.done.map((t) => `- [x] \`${t.id}\` ${t.title}`), '');
+    if (p.undone.length) out.push('## 取消完成', '', ...p.undone.map((t) => `- [ ] \`${t.id}\` ${t.title}`), '');
+    return out.join('\n');
+  }
+
+  // 打开预填好的 GitHub Issue；链接太长时把正文放进剪贴板，让用户粘贴
+  function submitGitHub() {
+    const p = pendingSync();
+    if (!D.repo) return toast('data.js 里没有设置 repo');
+    if (!p.count) return toast('没有新的决策或勾选要提交');
+    const now = sg(Date.now());
+    const title = `决策同步 · ${now.y}-${pad(now.m)}-${pad(now.d)} ${now.hm} · ${p.count} 项`;
+    const body = issueBody(p);
+    const base = `https://github.com/${D.repo}/issues/new?`;
+    let url = base + new URLSearchParams({ title, body, labels: '决策同步' });
+    if (url.length > 7000) {
+      copy(body);
+      url = base + new URLSearchParams({ title, body: '（内容较长，已复制到剪贴板：在这里粘贴后提交）', labels: '决策同步' });
+      window.open(url, '_blank', 'noopener');
+      return toast('内容较长，已复制，到 GitHub 页面粘贴后提交');
+    }
+    window.open(url, '_blank', 'noopener');
+    toast(`已打开 GitHub，确认后点 Create 提交（${p.count} 项）`);
+  }
+  const toast = (msg) => subs.forEach((f) => f('toast', msg));
+
   function copy(text) {
     if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(text);
     const ta = document.createElement('textarea');
@@ -209,6 +261,7 @@
       if (c) return setChoice(c.dataset.dec, c.dataset.choice);
       const cp = e.target.closest('[data-copy-md]');
       if (cp) return copy(exportMarkdown()).then(() => subs.forEach((f) => f('copied')));
+      if (e.target.closest('[data-submit-gh]')) return submitGitHub();
       const go = e.target.closest('[data-goto]');
       if (go) { e.preventDefault(); flash(go.dataset.goto); }
     });
@@ -232,6 +285,6 @@
   window.TC = {
     D, task, decision, group, esc, fmt, link, href, sg, pad, daysLeft, remain,
     isDone, toggle, dec, decided, taskDecState, overdue, tasksOf, decisionsOf,
-    progress, ratio, decStats, milestones, nextDeadline, exportMarkdown, copy, flash, sync, start,
+    progress, ratio, decStats, milestones, nextDeadline, exportMarkdown, pendingSync, issueBody, copy, flash, sync, start,
   };
 })();

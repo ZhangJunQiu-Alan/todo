@@ -228,6 +228,11 @@ body.hide-done .card.is-done{display:none}
 .bb a:hover{background:var(--bg)}
 .bb button{background:var(--yel);border:0;border-left:3px solid var(--ink);font:900 16px var(--sans);padding:0 28px;cursor:pointer;color:var(--ink);transition:background .12s,color .12s}
 .bb button:hover{background:var(--red);color:#fff}
+.bb .gh{background:var(--blue);color:#fff;display:flex;align-items:center;gap:10px}
+.bb .gh b{min-width:26px;height:26px;padding:0 6px;display:grid;place-items:center;background:var(--yel);color:var(--ink);border:2px solid var(--ink);font-size:14px}
+.bb .gh[hidden]{display:none}
+.bb .gh.none{background:#fff;color:var(--soft)}
+.bb .gh.none b{background:var(--bg);color:var(--soft)}
 .toast{position:fixed;right:24px;bottom:80px;z-index:21;background:var(--blue);color:#fff;border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);padding:12px 18px;font:900 15px var(--sans);transform:translateY(20px) rotate(2deg);opacity:0;transition:.3s cubic-bezier(.3,1.6,.5,1);pointer-events:none}
 .toast.show{opacity:1;transform:rotate(-2deg)}
 .end{margin-top:50px;font:500 12px/1.8 var(--mono);color:var(--soft);text-align:center}
@@ -239,7 +244,7 @@ body.hide-done .card.is-done{display:none}
   .lanes{grid-template-columns:64px 1fr 0}.off{display:none}.days div:nth-child(even) b{visibility:hidden}
   .cards,.dgrid{grid-template-columns:1fr}
   .gband{grid-template-columns:1fr auto}.gband .no{display:none}
-  .bb .seg:first-child,.bb a{display:none}
+  .bb .seg:first-child,.bb a{display:none}.bb button{padding:0 14px;font-size:14px}
   .decide{padding:28px 18px 34px}
 }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
@@ -299,7 +304,7 @@ body.hide-done .card.is-done{display:none}
     <span class="c1"></span><span class="c2"></span>
     <div class="dhead">
       <div><h2>拍板！</h2>
-        <p>每张卡底部是输入框。选项点一下按下去，再点一下弹起；输入框随写随存，存在本机浏览器里。写完点底栏「复制决策」，把结果贴给 Claude 或 Codex，让它写回 data.js。</p></div>
+        <p>每张卡底部是输入框。选项点一下按下去，再点一下弹起；输入框随写随存，存在这个浏览器里。写完点底栏蓝色的「提交到 GitHub」，在打开的页面点 Create 提交，之后跟 Claude 或 Codex 说「同步决策」就会写回 data.js。也可以点「复制决策」直接贴给它们。</p></div>
       <div class="dstat"><div class="big w"><span id="dsD">0</span><small>/<span id="dsT">0</span></small></div><div class="lab">已决定</div></div>
     </div>
     <div id="decisions"></div>
@@ -312,6 +317,7 @@ body.hide-done .card.is-done{display:none}
   <div class="seg">决策 <b class="w" id="bbD">0/0</b></div>
   <span class="grow"></span>
   <a href="#decide">去拍板 ↓</a>
+  <button class="gh" id="ghBtn" data-submit-gh title="打开一个预填好的 GitHub Issue，只包含还没写回 data.js 的决策和勾选">提交到 GitHub <b class="w" id="ghN">0</b></button>
   <button data-copy-md>复制决策 →</button>
 </div>
 <div class="toast" id="toast">已复制为 Markdown ✓</div>
@@ -474,11 +480,18 @@ body.hide-done .card.is-done{display:none}
   }
 
   let next = null;
-  function update(type) {
-    if (type === 'copied') {
+  function update(type, msg) {
+    if (type === 'copied' || type === 'toast') {
+      $('toast').textContent = type === 'toast' ? msg : '已复制为 Markdown ✓';
       $('toast').classList.add('show');
-      return setTimeout(() => $('toast').classList.remove('show'), 1800);
+      clearTimeout(update.t);
+      update.t = setTimeout(() => $('toast').classList.remove('show'), type === 'toast' ? 3200 : 1800);
+      return;
     }
+    const ps = TC.pendingSync();
+    $('ghN').textContent = ps.count;
+    $('ghBtn').classList.toggle('none', !ps.count);
+    $('ghBtn').hidden = !D.repo;
     const p = TC.progress(), ds = TC.decStats();
     $('pgP').innerHTML = Math.round(TC.ratio(p) * 100) + '<small>%</small>';
     $('pgB').style.width = TC.ratio(p) * 100 + '%';

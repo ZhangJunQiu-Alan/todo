@@ -10,6 +10,7 @@
     title: '个人 Todo',
     tzNote: '时间为新加坡时间（UTC+8）。',
     sourceFile: '/Users/zhangjunqiu/Desktop/知行合一/Background/Todo.md',
+    repo: 'ZhangJunQiu-Alan/todo',  // 「提交到 GitHub」把决策开成这个仓库的 Issue
     focus: 'p-game',  // 仪表盘黑色块显示「离它截止还有几天」的任务 id
 
     groups: [
