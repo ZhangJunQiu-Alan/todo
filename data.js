@@ -154,8 +154,6 @@
         links: [{ t: 'JCU 正式考试表', u: 'https://www.jcu.edu.sg/current-students/calendars-and-timetables/exam-calendar' }] },
 
       // ── 游戏：工程
-      { id: 'g-commit', g: 'game', s: 'g-eng', title: '提交工作区的 250 个改动', flag: '最急', hot: true, tag: '复查新增', owner: 'Claude',
-        desc: '包括删掉整个支线系统（23 个支线脚本、68 张支线图、3 个支线音效、索克和冰块敌人、剧情点和花点数解锁角色）、文档合并（删 14 份旧文档，新建地图设计、局内成长与信仰、待办）和剑士武器素材。`docs/待办.md` 本身也还不在 Git 里。先跑一遍回归，再按路径分批提交。' },
       { id: 'g-locale', g: 'game', s: 'g-eng', title: '清掉 3 条没人用的翻译', tag: '复查新增', owner: 'Claude',
         desc: '`tools/check_translations.py` 报的：「指甲堆」「锚链」「【主神】」。' },
 
