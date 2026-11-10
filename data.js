@@ -63,6 +63,7 @@
         title: '个人作品集网站', desc: '整理要展示的项目，完成网站开发，检查桌面端、移动端和项目链接。', dec: ['d-portfolio'] },
       { id: 'p-ielts', g: 'life', s: 'life', short: '雅思', due: '2027-02-09T00:00:00+08:00', dueText: '2027 年 2 月 9 日前',
         title: '参加一次雅思考试', desc: '确定考试类别和场次，完成报名并参加考试。具体考试日期待定。', dec: ['d-ielts'] },
+      { id: 'p-masters-ps', g: 'life', s: 'life', title: '找一下NUS,NTU,SIT,SUTD相关的硕士项目后完成PS', dueText: '日期待确认' },
 
       // ── 课程作业
       { id: 'c-3406a2', g: 'course', s: 'c1122', due: '2026-11-22T21:59:00+08:00', short: '移动开发',
@@ -156,6 +157,7 @@
       // ── 游戏：工程
       { id: 'g-locale', g: 'game', s: 'g-eng', title: '清掉 3 条没人用的翻译', tag: '复查新增', owner: 'Claude',
         desc: '`tools/check_translations.py` 报的：「指甲堆」「锚链」「【主神】」。' },
+      { id: 'g-pixelfx', g: 'game', s: 'g-eng', title: 'PixelFX这个库替换一下目前的特效', dueText: '日期待确认' },
 
       // ── 游戏：等你定的
       { id: 'g-hero', g: 'game', s: 'g-decide', title: '枪手换成狂野比尔·希科克、法师换成浮士德', owner: '你',
