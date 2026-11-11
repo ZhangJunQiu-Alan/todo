@@ -64,9 +64,6 @@
       { id: 'p-ielts', g: 'life', s: 'life', short: '雅思', due: '2027-02-09T00:00:00+08:00', dueText: '2027 年 2 月 9 日前',
         title: '参加一次雅思考试', desc: '确定考试类别和场次，完成报名并参加考试。具体考试日期待定。', dec: ['d-ielts'] },
       { id: 'p-masters-ps', g: 'life', s: 'life', title: '找一下NUS,NTU,SIT,SUTD相关的硕士项目后完成PS', dueText: '日期待确认' },
-      { id: 'p-interview', g: 'life', s: 'life', title: 'Zhang Fan同学采访问题', due: '2026-11-11T23:59:00+08:00', dueText: '2026 年 11 月 11 日 23:59',
-        desc: '发给采访方', meta: 'Primoria', flag: '不紧急但重要',
-        links: [{ t: '采访问题文档', f: '{interview}' }] },
 
       // ── 课程作业
       { id: 'c-3406a2', g: 'course', s: 'c1122', due: '2026-11-22T21:59:00+08:00', short: '移动开发',
