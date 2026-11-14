@@ -92,7 +92,7 @@
         title: 'Multidisciplinary Project · A3 Poster Presentation',
         desc: '到校参加 Convergence Conference，现场展示海报。',
         links: [{ t: '考核说明', u: 'https://learn.jcu.edu.au/ultra/courses/_191513_1/file/_9721520_1?courseId=_191513_1' }] },
-      { id: 'c-2414a2', g: 'course', s: 'c1127b', due: '2026-11-27T21:59:00+08:00', short: '网络安全',
+      { id: 'c-2414a2', g: 'course', s: 'c1127b', due: '2026-11-27T21:59:00+08:00', short: '网络安全', done: '2026-11-14',
         title: 'Network Security · A2 Case Study', meta: '个人，15%',
         desc: '完成 Network Security Applications 案例报告，说明密码学如何保护数据、密钥和用户认证，以及安全的云计算方案。',
         links: [{ t: '提交入口', u: 'https://learn.jcu.edu.au/ultra/courses/_187021_1/assessment/_9778688_1/overview?courseId=_187021_1' }] },
