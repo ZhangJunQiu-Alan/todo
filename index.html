@@ -365,9 +365,20 @@ body.hide-done .card.is-done{display:none}
       ${links || badge ? `<div class="links">${links}${badge}</div>` : ''}</article>`;
   }
 
+  const awaitingSubmission = (t) => /已完成|已改完|已做完/.test(t.flag || '') && /未提交/.test(t.flag || '');
+
+  function awaitingHTML(g) {
+    const ts = TC.tasksOf(g.id).filter(awaitingSubmission);
+    if (!ts.length) return '';
+    return `<section class="group" id="awaiting-${g.id}" data-g="${g.id}"><div class="sec">
+      <h3><span>${esc(g.short || g.name)} · 已做完，待提交</span><em>${ts.length} 项</em></h3>
+      <div class="cards">${ts.map(cardHTML).join('')}</div></div></section>`;
+  }
+
   function groupHTML(g, gi) {
     const secs = g.sections.map((s) => {
-      const ts = TC.tasksOf(g.id, s.id);
+      const ts = TC.tasksOf(g.id, s.id).filter((t) => !awaitingSubmission(t));
+      if (!ts.length) return '';
       return `<div class="sec">${s.label ? `<h3><span>${esc(s.label)}</span><em>${ts.length} 项</em></h3>` : ''}<div class="cards">${ts.map(cardHTML).join('')}</div></div>`;
     }).join('');
     return `<section class="group" id="group-${g.id}" data-g="${g.id}">
@@ -448,7 +459,7 @@ body.hide-done .card.is-done{display:none}
     css.textContent = groupStyles();
     document.head.appendChild(css);
     $('fbEnd').insertAdjacentHTML('beforebegin', D.groups.map((g) => `<button class="sb" data-f="${g.id}">${esc(g.short || g.name)}<i></i></button>`).join(''));
-    $('groups').innerHTML = D.groups.map(groupHTML).join('');
+    $('groups').innerHTML = D.groups.map(groupHTML).join('') + D.groups.map(awaitingHTML).join('');
     $('decisions').innerHTML = D.groups.map((g) => {
       const list = TC.decisionsOf(g.id).filter((d) => visibleDecisionIds.has(d.id));
       if (!list.length) return '';
