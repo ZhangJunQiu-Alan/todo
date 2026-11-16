@@ -63,6 +63,10 @@
         title: '个人作品集网站', desc: '整理要展示的项目，完成网站开发，检查桌面端、移动端和项目链接。', dec: ['d-portfolio'] },
       { id: 'p-ielts', g: 'life', s: 'life', short: '雅思', due: '2027-02-09T00:00:00+08:00', dueText: '2027 年 2 月 9 日前',
         title: '参加一次雅思考试', desc: '确定考试类别和场次，完成报名并参加考试。具体考试日期待定。', dec: ['d-ielts'] },
+      { id: 'p-ielts-mock', g: 'life', s: 'life', short: '雅思模考', due: '2026-11-17T23:59:00+08:00', dueText: '2026 年 11 月 17 日（今天）', owner: '你',
+        title: '雅思模考：一套剑桥真题（机考形式）',
+        desc: '在电脑上按顺序做：听力 30 分钟 → 阅读 60 分钟 → 写作 60 分钟（Task 1 20 分钟，Task 2 40 分钟）。口语用语音 AI 模拟一轮并录音。做完把答案、标准答案和作文交给 Claude 分析。',
+        links: [{ t: '备考档案', f: '/Users/zhangjunqiu/Desktop/雅思备考/记录/档案.md' }] },
       { id: 'p-masters-ps', g: 'life', s: 'life', title: '找一下NUS,NTU,SIT,SUTD相关的硕士项目后完成PS', dueText: '日期待确认' },
 
       // ── 课程作业
