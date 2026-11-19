@@ -212,7 +212,6 @@
       // ── 游戏：工程
       { id: 'g-locale', g: 'game', s: 'g-eng', title: '清掉 3 条没人用的翻译', tag: '复查新增', owner: 'Claude',
         desc: '`tools/check_translations.py` 报的：「指甲堆」「锚链」「【主神】」。' },
-      { id: 'g-pixelfx', g: 'game', s: 'g-eng', title: 'PixelFX这个库替换一下目前的特效', dueText: '日期待确认' },
 
       // ── 游戏：等你定的
       { id: 'g-hero', g: 'game', s: 'g-decide', title: '枪手换成狂野比尔·希科克、法师换成浮士德', owner: '你',
