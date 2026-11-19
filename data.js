@@ -1,5 +1,5 @@
 // 待办网页的全部内容，也是唯一数据源。字段说明和写入规则见同目录 AGENTS.md，改完运行 node check.js。
-// 来源：../Todo.md（2026-11-09 全部收进来）；游戏分组来自 无限恐怖/docs/待办.md（2026-11-06）和 2026-11-09 的项目复查。
+// 来源：../Todo.md（2026-11-09 全部收进来）；游戏分组来自 无限恐怖/docs/待办.md（2026-11-19 按房间制重写后同步）。
 (function () {
   const DRIVE = '{drive}/Course';  // {drive} 在本机的 local.js 里解析，真实路径不进仓库
   const REPO = '/Users/zhangjunqiu/Desktop/无限恐怖';
@@ -36,18 +36,24 @@
         id: 'game', name: '游戏 V1 · 诸界余烬', short: '游戏', en: 'Game · Embers of the Realms', color: 'yellow',
         dueNote: 'V1 截止 · 2026 年 11 月 16 日前',
         window: { to: '2026-11-16T00:00:00+08:00', label: '游戏待办 → V1（11 月 16 日前导出）' },
-        note: '来自 `无限恐怖/docs/待办.md`（2026-11-06）和 2026-11-09 的项目复查。原清单的约定：这是唯一的待办清单，做完的直接从这里删掉；已完成工作的证据在各批 `assets/source/task*/` 和 Git 历史里。标「复查新增」的是 11-09 复查时补的。',
+        note: '来自 `无限恐怖/docs/待办.md`（2026-11-19 同步）。2026-11-19 起游戏从割草玩法改为哈迪斯式的房间制：一局连打北欧三关、每关 15 个房间，手动瞄准，角色改实时 3D，不再做像素素材。代码里还是旧玩法，按开发阶段 03–07 逐步换掉。做完的直接删掉，证据在 `assets/source/` 和 Git 历史里。',
         links: [
           { t: '武器、套装、词头与词缀设计稿', u: DESIGN },
           { t: '装备系统草案', f: REPO + '/docs/装备系统草案/index.html' },
           { t: '原待办.md', f: REPO + '/docs/待办.md' },
+          { t: '游戏设定 · 核心规则', f: REPO + '/docs/游戏设定.md' },
+          { t: '剑士 3D 试点', f: REPO + '/docs/Codex_剑士3D试点/README.md' },
         ],
         sections: [
+          { id: 'g-s03', label: '03 · 核心战斗' },
+          { id: 'g-s04', label: '04 · 房间推进' },
+          { id: 'g-s05', label: '05 · 剧情系统' },
+          { id: 'g-s06', label: '06 · 扩展北欧三关' },
+          { id: 'g-s07', label: '07 · 整体打磨' },
+          { id: 'g-artui', label: '美术与界面' },
           { id: 'g-eng', label: '工程' },
           { id: 'g-decide', label: '装备系统 · 等你定的' },
-          { id: 'g-codex', label: '装备系统 · Codex（美术）' },
           { id: 'g-code', label: '装备系统 · Claude（代码）' },
-          { id: 'g-qa', label: '验收（功能已做，还没通过）' },
           { id: 'g-tbd', label: '待定的设计和数值' },
           { id: 'g-later', label: '以后的想法（没排期）' },
         ],
@@ -137,6 +143,72 @@
         desc: '核对正式考试表中的场次及考场，准备 2 小时的校内 Respondus 期末考试。',
         links: [{ t: 'JCU 正式考试表', u: 'https://www.jcu.edu.sg/current-students/calendars-and-timetables/exam-calendar' }] },
 
+      // ── 游戏：03 核心战斗
+      { id: 'g-sw3d', g: 'game', s: 'g-s03', title: '剑士 3D 试点', owner: 'Codex', flag: '阶段 3 进行中',
+        desc: '阶段 1（选定 C 墨意东方）、阶段 2（设定定稿）已通过。2026-11-19 订阅了 Tripo Pro 可以导出；同日定下身体模型不带武器和刀鞘，Codex 正在出无武器设定图、在 Tripo 重新生成、Blender 修整。做完 Claude 检查后放进验收网站给你验收。之后是阶段 4 绑骨和动作、阶段 5 接入。',
+        links: [{ t: '剑士 3D 试点', f: REPO + '/docs/Codex_剑士3D试点/README.md' }] },
+      { id: 'g-tripo', g: 'game', s: 'g-s03', title: 'Tripo Pro 自动续费', owner: '你', short: 'Tripo 续费',
+        due: '2026-12-18T00:00:00+08:00', dueText: '2026 年 12 月 18 日前（以 Tripo 账单上的续费日为准）',
+        desc: '2026-11-19 订了 Pro 3k 按月，首月 $14，之后每月 $20。教育认证批下来、或者模型下完暂时不用时，在扣费前取消续费。' },
+      { id: 'g-swweapons', g: 'game', s: 'g-s03', title: '剑士 11 把武器的 3D 模型（连刀鞘）', owner: 'Codex',
+        desc: '角色身体不带武器，武器挂在右手和左腰挂点。先做太刀，参考 `assets/source/characters/swordsman_3d/02_三视图/武器.png`。' },
+      { id: 'g-aim', g: 'game', s: 'g-s03', title: '四个角色改为手动瞄准', owner: 'Claude',
+        desc: '普通攻击朝鼠标方向；大招范围从「屏幕内」改为「房间内」。文档已改，代码未改。' },
+      { id: 'g-enemyai', g: 'game', s: 'g-s03', title: '敌人 AI 和受击反馈按房间战斗重调', owner: 'Claude',
+        desc: '房间里同屏敌人少，单个敌人要更有威胁。' },
+      { id: 'g-enemy3d', g: 'game', s: 'g-s03', title: '敌人和 Boss 的 3D 规格',
+        desc: '等剑士试点跑通再定。' },
+
+      // ── 游戏：04 房间推进
+      { id: 'g-rooms', g: 'game', s: 'g-s04', title: '房间切换和一关 15 间的编排', owner: 'Claude',
+        desc: '清房开门、进入下一间、回头路关闭。Boss 固定第 15 间，前 14 间按类型数量随机排序。' },
+      { id: 'g-mmap', g: 'game', s: 'g-s04', title: '路线总览地图（按 M）',
+        desc: '15 个房间的路径图，房间类型图标、走过/当前/未到三种状态，打开时暂停。图标样式和信息量要设计。',
+        links: [{ t: '地图设计', f: REPO + '/docs/地图设计.md' }] },
+      { id: 'g-chest', g: 'game', s: 'g-s04', title: '清房宝箱掉装备', owner: '你',
+        desc: '各类房间宝箱的品质和数量要你定。', dec: ['d-chest'] },
+      { id: 'g-xp', g: 'game', s: 'g-s04', title: '经验和等级按 45 个房间重调', owner: 'Claude',
+        desc: '经验量、成型和觉醒时间、稀有度随房间数提升的数值。' },
+      { id: 'g-boons', g: 'game', s: 'g-s04', title: '八位神改写成动作祝福', owner: 'Claude',
+        desc: '神术从自动释放改成附着在普通攻击、特殊攻击、冲刺、大招上，或不占动作的被动。Claude 出稿，你审。',
+        links: [{ t: '局内成长与信仰', f: REPO + '/docs/局内成长与信仰.md' }] },
+      { id: 'g-miniboss', g: 'game', s: 'g-s04', title: '小 Boss 放进精英挑战房', owner: 'Claude',
+        desc: '第 15 间只打大 Boss；代码里还是按时间刷三个 Boss。' },
+      { id: 'g-units', g: 'game', s: 'g-s04', title: '距离数值按「身位」换算到新角色尺寸', owner: 'Claude',
+        desc: '接入新角色时试玩调整。' },
+
+      // ── 游戏：05 剧情系统
+      { id: 'g-story', g: 'game', s: 'g-s05', title: '回忆水晶球、可跳过的主线 CG、永久图鉴',
+        links: [{ t: '游戏设定', f: REPO + '/docs/游戏设定.md' }] },
+
+      // ── 游戏：06 扩展北欧三关
+      { id: 'g-levels', g: 'game', s: 'g-s06', title: '三关各 15 个房间的题材和布局',
+        links: [{ t: '地图设计', f: REPO + '/docs/地图设计.md' }] },
+      { id: 'g-atlas', g: 'game', s: 'g-s06', title: '更新房间图鉴', owner: 'Claude',
+        desc: '里面还是 7 个房间、分岔选门的旧草案。', links: [{ t: '房间图鉴', f: REPO + '/docs/芬布尔之冬房间图鉴/index.html' }] },
+
+      // ── 游戏：07 整体打磨
+      { id: 'g-audio', g: 'game', s: 'g-s07', title: '音频听感', owner: '你',
+        desc: '早期 54 个音效和 6 首音乐的听感与循环；神术音效在实际战斗里的触发和密集时的混音。' },
+      { id: 'g-i18n', g: 'game', s: 'g-s07', title: '多语言和设备',
+        desc: '只验过中英文、三种窗口尺寸。' },
+      { id: 'g-win', g: 'game', s: 'g-s07', title: 'Windows',
+        desc: '2026-10-22 已导出旧版 Windows 包（`build/windows_2026-10-22/`），但没在 Windows 真机上跑过；输入、手柄、音频、存档兼容都没测。目标是上 Steam（2026-11-10 定）。' },
+      { id: 'g-tm', g: 'game', s: 'g-s07', title: '改叫法和商标检索',
+        desc: '正式发布前：「主神」「主神空间」「轮回者」换成自己的叫法；游戏名和技能名做商标检索。', dec: ['d-rename'] },
+
+      // ── 游戏：美术与界面
+      { id: 'g-ui', g: 'game', s: 'g-artui', title: '界面样张', owner: 'Codex',
+        desc: '按古典碑刻 + 深蓝星图方向出几版主菜单、战斗 HUD、祝福选择、装备栏样张，你选定后替换现在的像素界面。' },
+      { id: 'g-icons', g: 'game', s: 'g-artui', title: '装备、素材、货币图标', owner: 'Codex',
+        desc: '手绘，不画稀有度。界面风格定了以后重新出任务书。原来的像素图标任务（套装防具 S-SET、S-ART-04）已作废。' },
+      { id: 'g-heroes3d', g: 'game', s: 'g-artui', title: '枪手、刺客、法师的画风和 3D 模型', owner: 'Codex',
+        desc: '按出身换笔触，等剑士试点跑通后做。' },
+      { id: 'g-art04', g: 'game', s: 'g-artui', title: '装备音效 S-SFX-01', owner: 'Codex',
+        desc: '可以开工。', links: [{ t: '装备音效任务', f: REPO + '/docs/Codex_装备音效任务.md' }] },
+      { id: 'g-mindmap', g: 'game', s: 'g-artui', title: '重画一版游戏思维导图',
+        desc: '房间制文档都改完以后。' },
+
       // ── 游戏：工程
       { id: 'g-locale', g: 'game', s: 'g-eng', title: '清掉 3 条没人用的翻译', tag: '复查新增', owner: 'Claude',
         desc: '`tools/check_translations.py` 报的：「指甲堆」「锚链」「【主神】」。' },
@@ -153,56 +225,33 @@
       { id: 'g-art', g: 'game', s: 'g-decide', title: '神器', owner: '你',
         desc: '屠龙者套的「挡下一次伤害」和霜王盔、守护符文重复，审神器时改掉霜王盔。', dec: ['d-art'] },
 
-      // ── 游戏：Codex
-      { id: 'g-sset', g: 'game', s: 'g-codex', title: '套装防具 S-SET', owner: 'Codex',
-        desc: '10 套套装 Claude 已收尾，正在交给 Codex 做美术：40 个防具图标、套装特效、状态图标。下一步是确认美术是否达标以及相关特效。',
-        links: [{ t: '套装防具美术任务', f: REPO + '/docs/Codex_套装防具美术任务.md' }, { t: '装备系统 · 已确认', f: REPO + '/docs/装备系统_已确认.md' }] },
-      { id: 'g-art04', g: 'game', s: 'g-codex', title: '素材和货币图标 S-ART-04、装备音效 S-SFX-01', owner: 'Codex',
-        desc: '可以开工。', links: [{ t: '装备系统美术任务', f: REPO + '/docs/Codex_装备系统美术任务.md' }] },
-      { id: 'g-artrest', g: 'game', s: 'g-codex', title: '其他职业武器、神器图标', owner: 'Codex',
-        desc: '等上面的设计审完，Claude 补表再发。' },
-
       // ── 游戏：Claude 代码
       { id: 'g-six', g: 'game', s: 'g-code', title: '六步接入', owner: 'Claude',
-        desc: '按草案「六步接入」做掉落、背包、强化、分解。剑士 11 套武器已接进游戏，目前在主神空间的「化身」页直接选择。', links: [{ t: '装备系统草案', f: REPO + '/docs/装备系统草案/index.html' }] },
+        desc: '按草案「六步接入」做强化、分解、词头词缀、神器。已接入：主神空间「装备」页（五个部位、行囊、详情，剑士的 11 把武器也在这里选）、10 套套装效果、结算和存档。', links: [{ t: '装备系统草案', f: REPO + '/docs/装备系统草案/index.html' }] },
       { id: 'g-data', g: 'game', s: 'g-code', title: '同步草案数据', owner: 'Claude',
         desc: '把 `docs/装备系统草案/data.js` 的套装换成 `docs/装备系统_已确认.md` 里的 10 套，剑士武器换成设计稿里的新版。' },
       { id: 'g-names', g: 'game', s: 'g-code', title: '角色只显示人名', owner: 'Claude',
         desc: '2026-11-10 定：剑士→宫本武藏、刺客→兰陵王、枪手→狂野比尔·希科克、法师→浮士德。枪手、法师等新设计审完一起改。' },
       { id: 'g-card', g: 'game', s: 'g-code', title: '武器强化卡（草案 TODO 1）', owner: 'Claude',
         desc: '新武器的独有规则会和现有武器卡冲突，例如「双刃·三连刺」。' },
-
-      // ── 游戏：验收
-      { id: 'g-perf', g: 'game', s: 'g-qa', title: '性能',
-        desc: '觉醒奥丁 + 大量敌人时帧时间有明显尖峰，没通过。记录在 `assets/source/taskN_performance_2026-10-21/`。' },
-      { id: 'g-play', g: 'game', s: 'g-qa', title: '真人通关', owner: '你',
-        desc: '三关都只有机器人打通过（满局外成长的枪手）。低、中成长，其他角色和构筑的难度、节奏、手感要你实际玩。复查补充：`局内成长与信仰.md` 里「升级速度、构筑成型和觉醒时间还没按这套规则试玩验证」并入这一条。' },
-      { id: 'g-audio', g: 'game', s: 'g-qa', title: '音频听感', owner: '你',
-        desc: '早期 54 个音效和 6 首音乐的听感与循环；神术音效在实际战斗里的触发和密集时的混音。' },
-      { id: 'g-i18n', g: 'game', s: 'g-qa', title: '多语言和设备',
-        desc: '只验过中英文、三种窗口尺寸。' },
-      { id: 'g-win', g: 'game', s: 'g-qa', title: 'Windows',
-        desc: '2026-10-22 已导出 Windows 包（`build/windows_2026-10-22/`），但没在 Windows 真机上跑过；输入、手柄、音频、存档兼容都没测。目标是上 Steam（2026-11-10 定）。' },
+      { id: 'g-clone', g: 'game', s: 'g-code', title: '英灵分身挂上玩家的武器', owner: 'Claude',
+        desc: '现在是空手挥砍（伤害和出手间隔按玩家的武器算）；猛志「逐层消失」暂定每秒掉一层。' },
 
       // ── 游戏：待定的设计和数值
       { id: 'g-prophet', g: 'game', s: 'g-tbd', title: '法师被动「先知」',
         desc: '是「升级四选一」，但现在所有角色升级都是四选一，等于没有被动，要重新设计。法师换成浮士德时一起改。', dec: ['d-prophet'] },
-      { id: 'g-vigrid', g: 'game', s: 'g-tbd', title: '第三关数值',
-        desc: '冷却、伤害、逃脱时间、束缚增伤、神明援助的范围和频率都是暂定值，集中在 `scripts/data/vigrid_tuning.gd`。', dec: ['d-vigrid'] },
       { id: 'g-fate', g: 'game', s: 'g-tbd', title: '改写命运的奖励',
         desc: '改写命运现在不加奖励点（`FATE_REWARD = 0`），要定公式。', dec: ['d-fate'] },
-      { id: 'g-15', g: 'game', s: 'g-tbd', title: '关卡改约 15 分钟',
-        desc: '正式发布后关卡改约 15 分钟，到时 Boss、刷怪、成长一起重排。' },
-      { id: 'g-tm', g: 'game', s: 'g-tbd', title: '改叫法和商标检索',
-        desc: '正式发布前：「主神」「主神空间」「轮回者」换成自己的叫法；游戏名和技能名做商标检索。', dec: ['d-rename'] },
 
       // ── 游戏：以后的想法
-      { id: 'g-faith', g: 'game', s: 'g-later', idea: true, title: '信仰：放逐、地图神像、三神传说',
+      { id: 'g-faith', g: 'game', s: 'g-later', idea: true, title: '信仰：放逐、房间里的神像、三神传说',
         links: [{ t: '局内成长与信仰', f: REPO + '/docs/局内成长与信仰.md' }] },
       { id: 'g-egg', g: 'game', s: 'g-later', idea: true, title: '第 1 关「察觉者」彩蛋',
         desc: '老歌者和刻满计数痕的符文石。', links: [{ t: '世界观', f: REPO + '/docs/世界观设定.md' }] },
       { id: 'g-next', g: 'game', s: 'g-later', idea: true, title: '后续篇章',
         desc: '西行、封神、山海经等（世界观第三节）。' },
+      { id: 'g-sidequest', g: 'game', s: 'g-later', idea: true, title: '交互式支线事件',
+        desc: '游戏设定「剧情呈现方式」第三层。' },
     ],
 
     // kind: decide = 要你拍板；confirm = 要你查到后填
@@ -247,10 +296,10 @@
         ] },
       { id: 'd-prophet', g: 'game', title: '法师被动「先知」怎么改',
         q: '现在写的是「每次升级从四个选项中选择一个」，所有角色都这样，等于没有被动。新被动写在下面。' },
-      { id: 'd-vigrid', g: 'game', title: '第三关暂定数值',
-        q: '冷却、伤害、逃脱时间、束缚增伤、神明援助的范围和频率，都在 `scripts/data/vigrid_tuning.gd`。' },
       { id: 'd-fate', g: 'game', title: '改写命运的奖励公式',
         q: '现在 `FATE_REWARD = 0`，改写命运不加奖励点。' },
+      { id: 'd-chest', g: 'game', title: '各类房间清房宝箱的品质和数量',
+        q: '清完一间战斗房掉宝箱，宝箱里是装备。普通战斗、特殊战斗、精英挑战、极限生存、契约试炼各掉什么品质、几件，写在下面。' },
       { id: 'd-rename', g: 'game', title: '「主神」「主神空间」「轮回者」的新叫法',
         q: '正式发布前要换成自己的叫法。游戏名和技能名也要做商标检索。' },
     ],
