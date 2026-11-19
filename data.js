@@ -150,9 +150,9 @@
       { id: 'g-swweapons', g: 'game', s: 'g-s03', title: '剑士 11 把武器的 3D 模型（连刀鞘）', owner: 'Claude', flag: '太刀已完成',
         desc: '角色身体不带武器，武器挂在右手和左腰挂点。太刀已在 Blender 里建模并换进游戏（2026-11-20 验收通过），其余 10 把照同样的坐标做。' },
       { id: 'g-enemyai', g: 'game', s: 'g-s03', title: '敌人 AI 和受击反馈按房间战斗重调', owner: 'Claude',
-        desc: '房间里同屏敌人少，单个敌人要更有威胁。' },
-      { id: 'g-enemy3d', g: 'game', s: 'g-s03', title: '敌人和 Boss 的 3D 规格',
-        desc: '等剑士试点跑通再定。' },
+        desc: '房间里同屏敌人少，单个敌人要更有威胁。等敌人 3D 模型做好再调。' },
+      { id: 'g-enemy3d', g: 'game', s: 'g-s03', title: '敌人 3D 试点（尸鬼、冰霜精魂）', owner: 'Codex', flag: '阶段 1 设计方案',
+        desc: '照剑士的五个阶段做：设计方案、三视图、建模、绑骨和动作、接入游戏。先做冻石庭院里的尸鬼和冰霜精魂，跑通后再铺开到其余敌人和 Boss。打击感已按参考视频调过一版，3D 敌人进游戏后再细调。' },
 
       // ── 游戏：04 房间推进
       { id: 'g-rooms', g: 'game', s: 'g-s04', title: '房间切换和一关 15 间的编排', owner: 'Claude',
