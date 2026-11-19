@@ -144,8 +144,8 @@
         links: [{ t: 'JCU 正式考试表', u: 'https://www.jcu.edu.sg/current-students/calendars-and-timetables/exam-calendar' }] },
 
       // ── 游戏：03 核心战斗
-      { id: 'g-sw3d', g: 'game', s: 'g-s03', title: '剑士 3D 试点', owner: 'Codex', flag: '阶段 3 进行中',
-        desc: '阶段 1（选定 C 墨意东方）、阶段 2（设定定稿）已通过。2026-11-19 订阅了 Tripo Pro 可以导出；同日定下身体模型不带武器和刀鞘，Codex 正在出无武器设定图、在 Tripo 重新生成、Blender 修整。做完 Claude 检查后放进验收网站给你验收。之后是阶段 4 绑骨和动作、阶段 5 接入。',
+      { id: 'g-sw3d', g: 'game', s: 'g-s03', title: '剑士 3D 试点', owner: 'Codex', flag: '下一步阶段 4 绑骨',
+        desc: '阶段 1–3 已通过：无武器基础模型定稿（Tripo Pro 多视图生成，脚换成单图版的，Blender 修整）。下一步阶段 4：先试 Tripo 自带绑骨，不行再比 Mixamo；武器挂点在右手掌心和左腰。网站操作由 Codex 做，Blender 由 Claude 做。之后是动作和阶段 5 接入。',
         links: [{ t: '剑士 3D 试点', f: REPO + '/docs/Codex_剑士3D试点/README.md' }] },
       { id: 'g-tripo', g: 'game', s: 'g-s03', title: 'Tripo Pro 自动续费', owner: '你', short: 'Tripo 续费',
         due: '2026-12-18T00:00:00+08:00', dueText: '2026 年 12 月 18 日前（以 Tripo 账单上的续费日为准）',
