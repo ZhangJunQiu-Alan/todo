@@ -144,9 +144,9 @@
         links: [{ t: 'JCU 正式考试表', u: 'https://www.jcu.edu.sg/current-students/calendars-and-timetables/exam-calendar' }] },
 
       // ── 游戏：03 核心战斗
-      { id: 'g-sw3d', g: 'game', s: 'g-s03', title: '剑士 3D 试点', owner: 'Claude', flag: '阶段 5 接入游戏',
-        desc: '阶段 1–4 已通过：无武器基础模型、Tripo 绑骨、7 个持刀动作（待机、跑步、冲刺、两种斩击、受击、死亡）、右手和左腰武器挂点。阶段 5 进行中：接进 Godot，做风格化着色器，替换中庭里的像素剑士。',
-        links: [{ t: '剑士 3D 试点', f: REPO + '/docs/Codex_剑士3D试点/README.md' }] },
+      { id: 'g-godui', g: 'game', s: 'g-s03', title: '选神界面重新设计', owner: 'Claude', flag: '出样张中',
+        desc: '剑士 3D 试点已完成（2026-11-19），验收时提出选神界面要重做。Claude 先设计几版方向，Codex 生成样张图，放到验收网站给你选，再按选定的做进游戏。方向是古典碑刻 + 深蓝星图 + 精细金属装饰。',
+        links: [{ t: '美术风格第八章', f: REPO + '/docs/游戏整体美术风格.md' }] },
       { id: 'g-tripo', g: 'game', s: 'g-s03', title: 'Tripo Pro 自动续费', owner: '你', short: 'Tripo 续费',
         due: '2026-12-18T00:00:00+08:00', dueText: '2026 年 12 月 18 日前（以 Tripo 账单上的续费日为准）',
         desc: '2026-11-19 订了 Pro 3k 按月，首月 $14，之后每月 $20。教育认证批下来、或者模型下完暂时不用时，在扣费前取消续费。' },
