@@ -113,13 +113,6 @@
         title: 'Multidisciplinary Project · A3 Final Project', meta: '小组，30%',
         desc: '提交约 2,000 字的 PebblePad 作品集，附成果摘要、详细报告，以及至少 5 次真实团队会议的议程和纪要。',
         links: [{ t: '课程考核区', u: 'https://learn.jcu.edu.au/ultra/courses/_191513_1/outline' }] },
-      { id: 'c-3406a3', g: 'course', s: 'c1129b', due: '2026-11-29T23:59:00+08:00', short: '移动开发',
-        title: 'Mobile Computing · A3 Educational App', meta: '个人，50%',
-        desc: '完成至少 4 个 Compose 页面、外部 API、Room 持久化和测试。提交项目 ZIP、GitHub 链接和约 1,000 字的反思 PDF。提交入口确认是 11 月 29 日。',
-        links: [
-          { t: 'A3 作业说明', u: 'https://learn.jcu.edu.au/ultra/courses/_187304_1/file/_9756516_1?courseId=_187304_1' },
-          { t: '考核总览', u: 'https://learn.jcu.edu.au/ultra/courses/_187304_1/file/_9756443_1?courseId=_187304_1' },
-        ] },
       { id: 'c-3405a3a', g: 'course', s: 'c1129b', due: '2026-11-29T23:59:00+08:00', short: '设计思维',
         title: 'Design Thinking III · A3 Part A Design Sprint Activities', meta: '小组，25%',
         desc: '用 FigJam 和 Figma 整理从问题理解到原型测试和迭代的证据。',
