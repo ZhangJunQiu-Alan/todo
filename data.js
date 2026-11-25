@@ -22,7 +22,6 @@
         note: '作业截止信息来自 2026 年 11 月 6 日和 9 日的 LearnJCU 核对记录。',
         links: [{ t: '四门课的官方说明、评分表和模板', f: DRIVE + '/Assessment_资料索引.md' }],
         sections: [
-          { id: 'c1122', label: '11 月 22 日（日）21:59' },
           { id: 'c1124', label: '11 月 24 日（二）23:59' },
           { id: 'c1127', label: '11 月 27 日（五）13:00' },
           { id: 'c1127b', label: '11 月 27 日（五）21:59' },
@@ -76,14 +75,6 @@
       { id: 'p-masters-ps', g: 'life', s: 'life', title: '找一下NUS,NTU,SIT,SUTD相关的硕士项目后完成PS', dueText: '日期待确认' },
 
       // ── 课程作业
-      { id: 'c-3406a2', g: 'course', s: 'c1122', due: '2026-11-22T21:59:00+08:00', short: '移动开发',
-        title: 'Mobile Computing · A2 Ethics Presentation', meta: '个人，25%',
-        desc: '分析 1–2 个移动应用伦理问题，结合 ACS 准则，引用至少 6 个学术或行业来源。提交 10–15 分钟带人像的 MP4 和 PPTX 或 PDF 幻灯片。幻灯片已按评分表修改完成（PPTX + PDF）；下一步：去找老师看看做的怎么样，有什么地方可以更优化。目前还没有提交。',
-        flag: '幻灯片已改完 · 未提交',
-        links: [
-          { t: '提交入口', u: 'https://learn.jcu.edu.au/ultra/courses/_187304_1/assessment/_9756514_1/overview?courseId=_187304_1' },
-          { t: '幻灯片所在文件夹', f: DRIVE + '/CP3406_Mobile Computing/Assessment/Assessment2_Ethics Presentation' },
-        ] },
       { id: 'c-3102poster', g: 'course', s: 'c1124', due: '2026-11-24T23:59:00+08:00', short: '跨学科项目',
         title: 'Multidisciplinary Project · A3 Poster Submission', meta: '个人，25%',
         desc: '用官方模板制作海报，按所属 Tutorial 上传 PDF。FuturePath · Group29-B 的蓝橙印刷风设计稿已完成至 v4；下一步：按官方模板核对 Logo、A1 竖版尺寸与打印清晰度，导出并检查 PDF，再上传并保存回执。设计稿完成不等于已提交。',
