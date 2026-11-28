@@ -75,19 +75,6 @@
       { id: 'p-masters-ps', g: 'life', s: 'life', title: '找一下NUS,NTU,SIT,SUTD相关的硕士项目后完成PS', dueText: '日期待确认' },
 
       // ── 课程作业
-      { id: 'c-3102poster', g: 'course', s: 'c1124', due: '2026-11-24T23:59:00+08:00', short: '跨学科项目',
-        title: 'Multidisciplinary Project · A3 Poster Submission', meta: '个人，25%',
-        desc: '用官方模板制作海报，按所属 Tutorial 上传 PDF。FuturePath · Group29-B 的蓝橙印刷风设计稿已完成至 v4；下一步：按官方模板核对 Logo、A1 竖版尺寸与打印清晰度，导出并检查 PDF，再上传并保存回执。设计稿完成不等于已提交。',
-        flag: '设计稿 v4 已完成 · 未提交',
-        links: [
-          { t: 'FuturePath 海报 v4（PNG）', f: DRIVE + '/CP3102_Multidisciplinary Project/B Group/Assessment 3/Poster/Selected Risograph/AI_FuturePath_Group29-B_Risograph_B2B_v4.png' },
-          { t: '海报模板', f: DRIVE + '/CP3102_Multidisciplinary Project/Assessment/Assessment3_Poster Presentation/39th-Poster-template.pptx' },
-          { t: '课程考核区', u: 'https://learn.jcu.edu.au/ultra/courses/_191513_1/outline' },
-        ] },
-      { id: 'c-3102pres', g: 'course', s: 'c1127', due: '2026-11-27T13:00:00+08:00', short: '跨学科项目',
-        title: 'Multidisciplinary Project · A3 Poster Presentation',
-        desc: '到校参加 Convergence Conference，现场展示海报。',
-        links: [{ t: '考核说明', u: 'https://learn.jcu.edu.au/ultra/courses/_191513_1/file/_9721520_1?courseId=_191513_1' }] },
       { id: 'c-3405a2a', g: 'course', s: 'c1129a', due: '2026-11-29T21:59:00+08:00', short: '设计思维',
         title: 'Design Thinking III · A2 Part A Scrum Project Activities', meta: '小组，25%',
         desc: '提交 Weeks 5–9 的 Scrum 证据，包括 Backlog、Definition of Done、角色轮换和每轮改进记录。',
@@ -100,10 +87,6 @@
         title: 'Multidisciplinary Project · A2 Reflective Journal', meta: '个人，15%',
         desc: '约 1,000 字，结合实际项目经历反思跨专业合作与职业发展。',
         links: [{ t: '课程考核区', u: 'https://learn.jcu.edu.au/ultra/courses/_191513_1/outline' }] },
-      { id: 'c-3102final', g: 'course', s: 'c1129b', due: '2026-11-29T23:59:00+08:00', short: '跨学科项目',
-        title: 'Multidisciplinary Project · A3 Final Project', meta: '小组，30%',
-        desc: '提交约 2,000 字的 PebblePad 作品集，附成果摘要、详细报告，以及至少 5 次真实团队会议的议程和纪要。',
-        links: [{ t: '课程考核区', u: 'https://learn.jcu.edu.au/ultra/courses/_191513_1/outline' }] },
       { id: 'c-3405a3a', g: 'course', s: 'c1129b', due: '2026-11-29T23:59:00+08:00', short: '设计思维',
         title: 'Design Thinking III · A3 Part A Design Sprint Activities', meta: '小组，25%',
         desc: '用 FigJam 和 Figma 整理从问题理解到原型测试和迭代的证据。',
@@ -112,10 +95,6 @@
         title: 'Design Thinking III · A3 Part B Individual Reflection', meta: '个人，5%',
         desc: '用 Gibbs 写约 500 字，分析一次有效引导和一次困难经历，引用 Sprint 产物作为证据。',
         links: [{ t: '课程考核区', u: 'https://learn.jcu.edu.au/ultra/courses/_186997_1/outline' }] },
-      { id: 'c-2414exam', g: 'course', s: 'ctbd', dueText: '场次时间待核实', short: '网络安全',
-        title: 'Network Security · A3 Final Exam', meta: '个人，40%',
-        desc: '核对正式考试表中的场次及考场，准备 2 小时的校内 Respondus 期末考试。',
-        links: [{ t: 'JCU 正式考试表', u: 'https://www.jcu.edu.sg/current-students/calendars-and-timetables/exam-calendar' }] },
 
       // ── 游戏：03 核心战斗
       { id: 'g-tripo', g: 'game', s: 'g-s03', title: 'Tripo Pro 自动续费', owner: '你', short: 'Tripo 续费',
