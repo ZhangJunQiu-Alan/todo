@@ -83,7 +83,7 @@
         title: 'Design Thinking III · A2 Part B Individual Reflective Report', meta: '个人，5%',
         desc: '用 Gibbs 循环分析一次正向经历和一次挑战，合计约 500 字（±10%）。',
         links: [{ t: '个人提交', u: 'https://learn.jcu.edu.au/ultra/courses/_186997_1/assessment/_9756250_1/overview?courseId=_186997_1' }] },
-      { id: 'c-3102a2', g: 'course', s: 'c1129b', due: '2026-11-29T23:59:00+08:00', short: '跨学科项目',
+      { id: 'c-3102a2', g: 'course', s: 'c1129b', due: '2026-11-29T23:59:00+08:00', short: '跨学科项目', done: '2026-11-28',
         title: 'Multidisciplinary Project · A2 Reflective Journal', meta: '个人，15%',
         desc: '约 1,000 字，结合实际项目经历反思跨专业合作与职业发展。',
         links: [{ t: '课程考核区', u: 'https://learn.jcu.edu.au/ultra/courses/_191513_1/outline' }] },
